@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://recipe-manager.local/schemas/backup-1.0.json",
+  "title": "Recipe Manager Full Backup",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "fileType", "createdAt", "appVersion", "masterVersion", "data"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "fileType": { "const": "full-backup" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "appVersion": { "type": "string", "minLength": 1 },
+    "masterVersion": { "type": "string", "minLength": 1 },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recipes", "recipeIngredients", "weeklyMenus", "menuDays", "menuItems",
+        "cookingHistories", "historyItems", "shoppingLists", "shoppingItems",
+        "userFoodMasters", "settings"
+      ],
+      "properties": {
+        "recipes": { "type": "array", "items": { "$ref": "#/$defs/recipe" } },
+        "recipeIngredients": { "type": "array", "items": { "$ref": "#/$defs/ingredient" } },
+        "weeklyMenus": { "type": "array", "items": { "$ref": "#/$defs/weeklyMenu" } },
+        "menuDays": { "type": "array", "items": { "$ref": "#/$defs/menuDay" } },
+        "menuItems": { "type": "array", "items": { "$ref": "#/$defs/menuItem" } },
+        "cookingHistories": { "type": "array", "items": { "$ref": "#/$defs/history" } },
+        "historyItems": { "type": "array", "items": { "$ref": "#/$defs/historyItem" } },
+        "shoppingLists": { "type": "array", "items": { "$ref": "#/$defs/shoppingList" } },
+        "shoppingItems": { "type": "array", "items": { "$ref": "#/$defs/shoppingItem" } },
+        "userFoodMasters": { "type": "array", "items": { "$ref": "#/$defs/foodMaster" } },
+        "settings": { "$ref": "#/$defs/appSettings" }
+      }
+    }
+  },
+  "$defs": {
+    "uuid": { "type": "string", "format": "uuid" },
+    "date": { "type": "string", "format": "date" },
+    "dateTime": { "type": "string", "format": "date-time" },
+    "nullableDate": { "type": ["string", "null"], "format": "date" },
+    "nullableDateTime": { "type": ["string", "null"], "format": "date-time" },
+    "role": { "enum": ["one_dish", "main", "side", "soup"] },
+    "recipe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "name", "normalizedName", "category", "cookingTimeMinutes", "effortLevel",
+        "sourceUrl", "memo", "lastCookedAt", "initialLastCookedAt", "nutritionGroups",
+        "status", "deletedAt", "createdAt", "updatedAt"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "normalizedName": { "type": "string", "minLength": 1 },
+        "category": { "$ref": "#/$defs/role" },
+        "cookingTimeMinutes": { "type": ["integer", "null"], "minimum": 1, "maximum": 1440 },
+        "effortLevel": { "enum": ["easy", "normal", "hard"] },
+        "sourceUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "pattern": "^[Hh][Tt][Tt][Pp][Ss]?://",
+          "maxLength": 2048
+        },
+        "memo": { "type": "string", "maxLength": 2000 },
+        "lastCookedAt": { "$ref": "#/$defs/nullableDate" },
+        "initialLastCookedAt": { "$ref": "#/$defs/nullableDate" },
+        "nutritionGroups": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "status": { "enum": ["active", "deleted"] },
+        "deletedAt": { "$ref": "#/$defs/nullableDateTime" },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "updatedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "ingredient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "recipeId", "order", "name", "normalizedName", "amount", "unit", "note", "foodMasterId"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "recipeId": { "$ref": "#/$defs/uuid" },
+        "order": { "type": "integer", "minimum": 0 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "normalizedName": { "type": "string", "minLength": 1 },
+        "amount": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "unit": { "type": "string", "maxLength": 20 },
+        "note": { "type": "string", "maxLength": 200 },
+        "foodMasterId": { "anyOf": [{ "$ref": "#/$defs/uuid" }, { "type": "null" }] }
+      }
+    },
+    "weeklyMenu": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weekStart", "createdAt", "updatedAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "weekStart": { "$ref": "#/$defs/date" },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "updatedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "menuDay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weeklyMenuId", "date", "noMeal", "noMealReason"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "weeklyMenuId": { "$ref": "#/$defs/uuid" },
+        "date": { "$ref": "#/$defs/date" },
+        "noMeal": { "type": "boolean" },
+        "noMealReason": { "type": "string", "maxLength": 200 }
+      }
+    },
+    "menuItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "menuDayId", "recipeId", "recipeNameSnapshot", "role"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "menuDayId": { "$ref": "#/$defs/uuid" },
+        "recipeId": { "$ref": "#/$defs/uuid" },
+        "recipeNameSnapshot": { "type": "string", "minLength": 1 },
+        "role": { "$ref": "#/$defs/role" }
+      }
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "cookedDate", "createdAt", "updatedAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "cookedDate": { "$ref": "#/$defs/date" },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "updatedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "historyItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "historyId", "recipeId", "recipeNameSnapshot", "role"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "historyId": { "$ref": "#/$defs/uuid" },
+        "recipeId": { "$ref": "#/$defs/uuid" },
+        "recipeNameSnapshot": { "type": "string", "minLength": 1 },
+        "role": { "$ref": "#/$defs/role" }
+      }
+    },
+    "shoppingList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weekStart", "sourceMenuUpdatedAt", "createdAt", "updatedAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "weekStart": { "$ref": "#/$defs/date" },
+        "sourceMenuUpdatedAt": { "$ref": "#/$defs/dateTime" },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "updatedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "shoppingItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "shoppingListId", "name", "normalizedName", "amount", "unit", "recipeNames", "checked", "excluded"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "shoppingListId": { "$ref": "#/$defs/uuid" },
+        "name": { "type": "string", "minLength": 1 },
+        "normalizedName": { "type": "string", "minLength": 1 },
+        "amount": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "unit": { "type": "string", "maxLength": 20 },
+        "recipeNames": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "checked": { "type": "boolean" },
+        "excluded": { "type": "boolean" }
+      }
+    },
+    "foodMaster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "normalizedName", "aliases", "foodGroups", "seasonMonths", "salesAmount", "salesUnit", "isMainIngredient", "userEditable", "createdAt", "updatedAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" },
+        "name": { "type": "string", "minLength": 1 },
+        "normalizedName": { "type": "string", "minLength": 1 },
+        "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "foodGroups": { "type": "array", "items": { "enum": ["staple", "protein", "vegetable", "dairy", "fruit", "other"] }, "uniqueItems": true },
+        "seasonMonths": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 12 }, "uniqueItems": true },
+        "salesAmount": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "salesUnit": { "type": "string", "maxLength": 20 },
+        "isMainIngredient": { "type": "boolean" },
+        "userEditable": { "const": true },
+        "createdAt": { "$ref": "#/$defs/dateTime" },
+        "updatedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "appSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backupReminderIntervalDays", "lastBackupAt", "holidayDataVersion"],
+      "properties": {
+        "backupReminderIntervalDays": { "enum": [7, 14, 30, 60] },
+        "lastBackupAt": { "$ref": "#/$defs/nullableDateTime" },
+        "holidayDataVersion": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

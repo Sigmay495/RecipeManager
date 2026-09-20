@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "fileType": "recipe-import",
+  "generatedAt": "2026-09-20T00:00:00Z",
+  "recipes": [
+    {
+      "name": "鶏肉と野菜の炒め物",
+      "category": "main",
+      "ingredients": [
+        {
+          "name": "鶏もも肉",
+          "amount": 300,
+          "unit": "g",
+          "note": ""
+        },
+        {
+          "name": "キャベツ",
+          "amount": 0.25,
+          "unit": "個",
+          "note": ""
+        },
+        {
+          "name": "にんじん",
+          "amount": 0.5,
+          "unit": "本",
+          "note": ""
+        }
+      ],
+      "cookingTimeMinutes": 20,
+      "effortLevel": "normal",
+      "sourceUrl": null,
+      "memo": "2人分の登録例",
+      "warnings": []
+    }
+  ]
+}
