@@ -48,12 +48,20 @@ class MenuProposalEngineTest {
 
     @Test fun fiveHundredRecipesAreProposedWithinFiveSeconds() {
         val recipes = RecipeCategory.entries.flatMap { category -> (1..125).map { index -> recipe("${category.name}-$index", category = category) } }
-        lateinit var result: MenuProposal
-        val elapsed = measureTimeMillis {
-            result = requireNotNull(MenuProposalEngine(emptyList(), emptyMap()).propose((0L..4L).map(monday::plusDays), recipes, 1234))
+        val targetDays = (0L..4L).map(monday::plusDays)
+        val engine = MenuProposalEngine(emptyList(), emptyMap())
+        repeat(1) { requireNotNull(engine.propose(targetDays, recipes, 1234)) }
+        val elapsedTimes = (1..3).map {
+            var result: MenuProposal? = null
+            val elapsed = measureTimeMillis {
+                result = engine.propose(targetDays, recipes, 1234)
+            }
+            assertEquals(5, requireNotNull(result).days.size)
+            elapsed
         }
-        assertEquals(5, result.days.size)
-        assertTrue("elapsed=${elapsed}ms", elapsed < 5_000)
+        val slowest = elapsedTimes.max()
+        println("500-recipe proposal elapsed(ms): ${elapsedTimes.joinToString()}, slowest=$slowest")
+        assertTrue("slowest=${slowest}ms", slowest < 5_000)
     }
 
     private fun recipe(id: String, effort: EffortLevel = EffortLevel.NORMAL, lastCooked: LocalDate? = null, category: RecipeCategory = RecipeCategory.ONE_DISH) = RecipeWithIngredients(

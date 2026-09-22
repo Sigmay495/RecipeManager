@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
+}
+
+val keystorePropertiesFile = rootProject.projectDir.parentFile.resolve("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.isFile) {
+        keystorePropertiesFile.inputStream().use(::load)
+    }
 }
 
 android {
@@ -16,6 +25,25 @@ android {
         versionName = "1.00"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        if (keystorePropertiesFile.isFile) {
+            create("release") {
+                storeFile = file(requireNotNull(keystoreProperties.getProperty("storeFile")) { "storeFile is required" })
+                storePassword = requireNotNull(keystoreProperties.getProperty("storePassword")) { "storePassword is required" }
+                keyAlias = requireNotNull(keystoreProperties.getProperty("keyAlias")) { "keyAlias is required" }
+                keyPassword = requireNotNull(keystoreProperties.getProperty("keyPassword")) { "keyPassword is required" }
+            }
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            if (keystorePropertiesFile.isFile) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
     }
 
     buildFeatures {
@@ -79,4 +107,16 @@ tasks.register<Copy>("copyDebugApkToDst") {
     from(layout.buildDirectory.file("outputs/apk/debug/app-debug.apk"))
     into(rootProject.projectDir.parentFile.resolve("dst"))
     rename { "recipe-manager-debug.apk" }
+}
+
+tasks.register<Copy>("copyReleaseApkToDst") {
+    dependsOn("assembleRelease")
+    doFirst {
+        check(keystorePropertiesFile.isFile) {
+            "keystore.properties is required to create a distributable Release APK."
+        }
+    }
+    from(layout.buildDirectory.file("outputs/apk/release/app-release.apk"))
+    into(rootProject.projectDir.parentFile.resolve("dst"))
+    rename { "recipe-manager-release.apk" }
 }

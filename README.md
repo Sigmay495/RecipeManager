@@ -2,6 +2,15 @@
 
 家族2人向けのAndroidレシピ・献立管理アプリです。現在のバージョンはv1.00です。
 
+バージョンごとの変更内容は[変更履歴](CHANGELOG.md)を参照してください。
+
+## 本プロジェクトについて
+
+- 本アプリは個人利用を想定しています。利用、データ管理、バックアップ、端末へのインストールは利用者自身の判断と責任で行ってください。
+- 本アプリの利用によって生じたデータ消失、損害その他の問題について、作者は責任を負いません。詳細な条件は[MIT License](LICENSE)を参照してください。
+- 本プロジェクトのソースコードおよび文書は、利用者による要件提示と各工程のレビューのもと、OpenAI Codexによって全面的に生成されました。
+- AI生成物を含むため、利用前に内容、動作、セキュリティ、ライセンス適合性を利用者自身でも確認してください。
+
 ## 現在の実装状況
 
 コーディング工程の第9段階まで実装・検証済みです。レシピ、Import、献立の自動提案・評価、履歴、買い物材料リスト、全ユーザーデータのJSONバックアップと復元に対応しています。Android 8.0（API 26）とAndroid 16で総合テストを行い、単体テスト18件、端末テスト15件、Lint、オフライン起動、データを保持したAPK更新を確認済みです。詳細は[総合テスト報告書](document/TEST_REPORT.md)を参照してください。
@@ -14,7 +23,11 @@
 
 ## Android端末への導入手順
 
-1. `recipe-manager-debug.apk`をAndroid端末へコピーする。Google Driveなどへ保存し、端末でダウンロードしてもよい。
+現在、GitHub上でインストール用APKは配布していない。リポジトリからビルドする場合は、後述の開発用ビルドで`recipe-manager-debug.apk`を生成する。Debug APKは開発・動作確認用途に限り、日常利用向けの公開時は署名済みRelease APKを使用する。
+
+APKを用意した後は、次の手順で導入する。
+
+1. APKをAndroid端末へコピーする。Google Driveなどへ保存し、端末でダウンロードしてもよい。
 2. Android端末の「ファイル」アプリなどからAPKを開く。
 3. 初回だけ、APKを開いたアプリに対して「不明なアプリのインストール」を許可する。
 4. 画面の案内に従ってインストールする。
@@ -59,10 +72,16 @@ PCなどで作成したレシピJSONをまとめて登録する場合は、「�
 - `document/`: 要件定義書、概要設計書、詳細設計書、JSON Schema
 - `src/`: Androidプロジェクト
 - `dst/`: レビュー・配布用の生成物
+- `CHANGELOG.md`: バージョンごとの変更履歴
+- `AGENTS.md`: 新しい開発セッション向けの作業ガイド
+
+## ライセンス
+
+RecipeManager本体は[MIT License](LICENSE)で公開しています。利用している外部ライブラリについては[Third-Party Notices](THIRD_PARTY_NOTICES.md)を参照してください。
 
 ## 開発用ビルド
 
-Android SDKの場所を`src/local.properties`の`sdk.dir`へ設定してから実行します。
+必要なJDK、Android SDK、`local.properties`などの準備は[開発環境構築手順](document/DEVELOPMENT_SETUP.md)を参照してください。Android SDKの場所を`src/local.properties`の`sdk.dir`へ設定してから実行します。
 
 ```powershell
 cd src
@@ -70,3 +89,5 @@ cd src
 ```
 
 Debug APKは`dst/recipe-manager-debug.apk`へ出力されます。
+
+署名済みRelease APKの作成と公開については[リリース手順書](document/RELEASE_GUIDE.md)を参照してください。
