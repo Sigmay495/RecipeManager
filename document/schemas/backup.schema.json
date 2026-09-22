@@ -35,7 +35,7 @@
     }
   },
   "$defs": {
-    "uuid": { "type": "string", "format": "uuid" },
+    "uuid": { "type": "string", "minLength": 1 },
     "date": { "type": "string", "format": "date" },
     "dateTime": { "type": "string", "format": "date-time" },
     "nullableDate": { "type": ["string", "null"], "format": "date" },
@@ -102,13 +102,14 @@
     "menuDay": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "weeklyMenuId", "date", "noMeal", "noMealReason"],
+      "required": ["id", "weeklyMenuId", "date", "noMeal", "noMealReason", "noMealMemo"],
       "properties": {
         "id": { "$ref": "#/$defs/uuid" },
         "weeklyMenuId": { "$ref": "#/$defs/uuid" },
         "date": { "$ref": "#/$defs/date" },
         "noMeal": { "type": "boolean" },
-        "noMealReason": { "type": "string", "maxLength": 200 }
+        "noMealReason": { "type": "string", "maxLength": 200 },
+        "noMealMemo": { "type": "string", "maxLength": 200 }
       }
     },
     "menuItem": {

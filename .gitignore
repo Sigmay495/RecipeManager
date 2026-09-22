@@ -1,0 +1,21 @@
+# Android / Gradle
+.gradle/
+.gradle-user-home/
+.kotlin/
+**/build/
+local.properties
+.android-sdk/
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+
+# Signing credentials
+*.jks
+*.keystore
+keystore.properties
+
+# Generated packages
+dst/*.apk
+dst/*.aab
+dst/*.png

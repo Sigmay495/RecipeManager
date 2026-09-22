@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "items": [
+    {"id":"builtin-rice","name":"米","aliases":["ご飯"],"salesUnit":"kg","isMainIngredient":true,"foodGroups":["GRAIN"],"seasonMonths":[]},
+    {"id":"builtin-pork","name":"豚肉","aliases":["豚こま","豚バラ肉"],"salesUnit":"g","isMainIngredient":true,"foodGroups":["MEAT"],"seasonMonths":[]},
+    {"id":"builtin-chicken","name":"鶏肉","aliases":["鶏もも肉","鶏むね肉"],"salesUnit":"g","isMainIngredient":true,"foodGroups":["MEAT"],"seasonMonths":[]},
+    {"id":"builtin-beef","name":"牛肉","aliases":["牛こま"],"salesUnit":"g","isMainIngredient":true,"foodGroups":["MEAT"],"seasonMonths":[]},
+    {"id":"builtin-salmon","name":"鮭","aliases":["サケ"],"salesUnit":"切れ","isMainIngredient":true,"foodGroups":["SEAFOOD"],"seasonMonths":[9,10,11]},
+    {"id":"builtin-egg","name":"卵","aliases":["たまご","玉子"],"salesUnit":"個","isMainIngredient":true,"foodGroups":["EGG"],"seasonMonths":[]},
+    {"id":"builtin-tofu","name":"豆腐","aliases":["木綿豆腐","絹ごし豆腐"],"salesUnit":"丁","isMainIngredient":true,"foodGroups":["SOY"],"seasonMonths":[]},
+    {"id":"builtin-onion","name":"玉ねぎ","aliases":["たまねぎ"],"salesUnit":"個","isMainIngredient":true,"foodGroups":["VEGETABLE"],"seasonMonths":[4,5]},
+    {"id":"builtin-carrot","name":"にんじん","aliases":["人参"],"salesUnit":"本","isMainIngredient":true,"foodGroups":["VEGETABLE"],"seasonMonths":[10,11,12,1,2]},
+    {"id":"builtin-cabbage","name":"キャベツ","aliases":["きゃべつ"],"salesUnit":"玉","isMainIngredient":true,"foodGroups":["VEGETABLE"],"seasonMonths":[3,4,5,11,12,1]},
+    {"id":"builtin-potato","name":"じゃがいも","aliases":["ジャガイモ","馬鈴薯"],"salesUnit":"個","isMainIngredient":true,"foodGroups":["VEGETABLE"],"seasonMonths":[5,6,10,11]},
+    {"id":"builtin-spinach","name":"ほうれん草","aliases":["ホウレンソウ"],"salesUnit":"束","isMainIngredient":true,"foodGroups":["VEGETABLE"],"seasonMonths":[11,12,1,2]},
+    {"id":"builtin-shiitake","name":"しいたけ","aliases":["椎茸","シイタケ"],"salesUnit":"パック","isMainIngredient":true,"foodGroups":["MUSHROOM"],"seasonMonths":[3,4,9,10,11]},
+    {"id":"builtin-wakame","name":"わかめ","aliases":["ワカメ"],"salesUnit":"g","isMainIngredient":true,"foodGroups":["SEAWEED"],"seasonMonths":[3,4,5]},
+    {"id":"builtin-soy-sauce","name":"しょうゆ","aliases":["醤油"],"salesUnit":"ml","isMainIngredient":false,"foodGroups":["SEASONING"],"seasonMonths":[]},
+    {"id":"builtin-miso","name":"みそ","aliases":["味噌"],"salesUnit":"g","isMainIngredient":false,"foodGroups":["SEASONING"],"seasonMonths":[]},
+    {"id":"builtin-salt","name":"塩","aliases":["食塩"],"salesUnit":"g","isMainIngredient":false,"foodGroups":["SEASONING"],"seasonMonths":[]},
+    {"id":"builtin-sugar","name":"砂糖","aliases":["上白糖"],"salesUnit":"g","isMainIngredient":false,"foodGroups":["SEASONING"],"seasonMonths":[]}
+  ]
+}
