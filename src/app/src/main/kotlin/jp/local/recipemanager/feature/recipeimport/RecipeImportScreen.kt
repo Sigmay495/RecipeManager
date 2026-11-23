@@ -22,7 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.ByteArrayOutputStream
+import jp.local.recipemanager.core.json.JsonInput
 
 @Composable
 fun RecipeImportScreen(viewModel: RecipeImportViewModel, onBack: () -> Unit) {
@@ -30,10 +30,13 @@ fun RecipeImportScreen(viewModel: RecipeImportViewModel, onBack: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        if (uri != null) scope.launch {
-            runCatching { withContext(Dispatchers.IO) { context.readImport(uri) } }
-                .onSuccess { (name, bytes) -> viewModel.load(name, bytes) }
-                .onFailure { viewModel.fail(it.message ?: "ファイルを読み込めませんでした") }
+        if (uri != null) {
+            viewModel.beginRead()
+            scope.launch {
+                runCatching { withContext(Dispatchers.IO) { context.readImport(uri) } }
+                    .onSuccess { (name, bytes) -> viewModel.load(name, bytes) }
+                    .onFailure { viewModel.fail(it.message ?: "ファイルを読み込めませんでした") }
+            }
         }
     }
 
@@ -67,7 +70,7 @@ private fun ImportPreviewContent(
         }
         state.fatalError?.let { Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(horizontal = 16.dp)) }
         if (preview == null) {
-            Text("ChatGPTなどで作成したrecipe-import形式のJSONを選択してください。最大5MB・100件です。", Modifier.padding(16.dp))
+            Text("ChatGPTなどで作成したrecipe-import形式のJSONを選択してください。最大5MiB・100件です。", Modifier.padding(16.dp))
         } else {
             Text("${preview.fileName}　正常 ${preview.validCount}件／エラー ${preview.errorCount}件", Modifier.padding(horizontal = 16.dp, vertical = 8.dp), fontWeight = FontWeight.Bold)
             LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -118,24 +121,16 @@ private fun ImportResultContent(result: RecipeImportResult, onReset: () -> Unit,
 
 private fun Context.readImport(uri: Uri): Pair<String, ByteArray> {
     var displayName = "recipe-import.json"
-    contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null)?.use { cursor ->
+    contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)?.use { cursor ->
         if (cursor.moveToFirst()) {
-            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME).takeIf { it >= 0 }?.let { displayName = cursor.getString(it) }
-            cursor.getColumnIndex(OpenableColumns.SIZE).takeIf { it >= 0 && !cursor.isNull(it) }?.let {
-                require(cursor.getLong(it) <= RecipeImportParser.MAX_FILE_BYTES) { "ファイルサイズは5MB以内にしてください" }
+            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME).takeIf { it >= 0 && !cursor.isNull(it) }?.let {
+                displayName = cursor.getString(it)
             }
         }
     }
-    val output = ByteArrayOutputStream()
-    contentResolver.openInputStream(uri).use { input ->
+    val bytes = contentResolver.openInputStream(uri).use { input ->
         requireNotNull(input) { "ファイルを開けませんでした" }
-        val buffer = ByteArray(8192)
-        while (true) {
-            val count = input.read(buffer)
-            if (count < 0) break
-            output.write(buffer, 0, count)
-            require(output.size() <= RecipeImportParser.MAX_FILE_BYTES) { "ファイルサイズは5MB以内にしてください" }
-        }
+        JsonInput.read(input, JsonInput.IMPORT_LIMIT)
     }
-    return displayName to output.toByteArray()
+    return displayName to bytes
 }

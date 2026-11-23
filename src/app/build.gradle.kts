@@ -21,8 +21,8 @@ android {
         applicationId = "jp.local.recipemanager"
         minSdk = 26
         targetSdk = 37
-        versionCode = 100
-        versionName = "1.00"
+        versionCode = 200
+        versionName = "2.00"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

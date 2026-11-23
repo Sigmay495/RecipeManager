@@ -1,0 +1,1723 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "5d991e7078a4c3e7ce13fa322c13d43e",
+    "entities": [
+      {
+        "tableName": "recipes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `normalizedName` TEXT NOT NULL, `category` TEXT NOT NULL, `cookingTimeMinutes` INTEGER, `effortLevel` TEXT NOT NULL, `sourceUrl` TEXT, `memo` TEXT NOT NULL, `lastCookedAt` TEXT, `nutritionGroups` TEXT NOT NULL, `proposalPriority` TEXT NOT NULL, `revision` INTEGER NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cookingTimeMinutes",
+            "columnName": "cookingTimeMinutes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "effortLevel",
+            "columnName": "effortLevel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceUrl",
+            "columnName": "sourceUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "memo",
+            "columnName": "memo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastCookedAt",
+            "columnName": "lastCookedAt",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "nutritionGroups",
+            "columnName": "nutritionGroups",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "proposalPriority",
+            "columnName": "proposalPriority",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recipes_normalizedName",
+            "unique": false,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_recipes_category",
+            "unique": false,
+            "columnNames": [
+              "category"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_category` ON `${TABLE_NAME}` (`category`)"
+          },
+          {
+            "name": "index_recipes_effortLevel",
+            "unique": false,
+            "columnNames": [
+              "effortLevel"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_effortLevel` ON `${TABLE_NAME}` (`effortLevel`)"
+          },
+          {
+            "name": "index_recipes_proposalPriority",
+            "unique": false,
+            "columnNames": [
+              "proposalPriority"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_proposalPriority` ON `${TABLE_NAME}` (`proposalPriority`)"
+          },
+          {
+            "name": "index_recipes_lastCookedAt",
+            "unique": false,
+            "columnNames": [
+              "lastCookedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_lastCookedAt` ON `${TABLE_NAME}` (`lastCookedAt`)"
+          },
+          {
+            "name": "index_recipes_updatedAt",
+            "unique": false,
+            "columnNames": [
+              "updatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipes_updatedAt` ON `${TABLE_NAME}` (`updatedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "recipeIngredients",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `recipeId` TEXT NOT NULL, `displayOrder` INTEGER NOT NULL, `name` TEXT NOT NULL, `normalizedName` TEXT NOT NULL, `amount` TEXT, `unit` TEXT NOT NULL, `note` TEXT NOT NULL, `foodMasterId` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`recipeId`) REFERENCES `recipes`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayOrder",
+            "columnName": "displayOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recipeIngredients_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipeIngredients_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          },
+          {
+            "name": "index_recipeIngredients_normalizedName",
+            "unique": false,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipeIngredients_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_recipeIngredients_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recipeIngredients_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          },
+          {
+            "name": "index_recipeIngredients_recipeId_displayOrder",
+            "unique": true,
+            "columnNames": [
+              "recipeId",
+              "displayOrder"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_recipeIngredients_recipeId_displayOrder` ON `${TABLE_NAME}` (`recipeId`, `displayOrder`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "recipes",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipeId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "weeklyMenus",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `weekStart` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, `revision` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weekStart",
+            "columnName": "weekStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_weeklyMenus_weekStart",
+            "unique": true,
+            "columnNames": [
+              "weekStart"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_weeklyMenus_weekStart` ON `${TABLE_NAME}` (`weekStart`)"
+          },
+          {
+            "name": "index_weeklyMenus_updatedAt",
+            "unique": false,
+            "columnNames": [
+              "updatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_weeklyMenus_updatedAt` ON `${TABLE_NAME}` (`updatedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "menuDays",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `weeklyMenuId` TEXT NOT NULL, `date` TEXT NOT NULL, `noMeal` INTEGER NOT NULL, `noMealReason` TEXT NOT NULL, `noMealMemo` TEXT NOT NULL, `requirementOrigin` TEXT NOT NULL, `dayLocked` INTEGER NOT NULL, `revision` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`weeklyMenuId`) REFERENCES `weeklyMenus`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weeklyMenuId",
+            "columnName": "weeklyMenuId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noMeal",
+            "columnName": "noMeal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noMealReason",
+            "columnName": "noMealReason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noMealMemo",
+            "columnName": "noMealMemo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requirementOrigin",
+            "columnName": "requirementOrigin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dayLocked",
+            "columnName": "dayLocked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_menuDays_weeklyMenuId",
+            "unique": false,
+            "columnNames": [
+              "weeklyMenuId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_menuDays_weeklyMenuId` ON `${TABLE_NAME}` (`weeklyMenuId`)"
+          },
+          {
+            "name": "index_menuDays_date",
+            "unique": true,
+            "columnNames": [
+              "date"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_menuDays_date` ON `${TABLE_NAME}` (`date`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "weeklyMenus",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "weeklyMenuId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "menuItems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `menuDayId` TEXT NOT NULL, `recipeId` TEXT NOT NULL, `recipeNameSnapshot` TEXT NOT NULL, `role` TEXT NOT NULL, `locked` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`menuDayId`) REFERENCES `menuDays`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`recipeId`) REFERENCES `recipes`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "menuDayId",
+            "columnName": "menuDayId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeNameSnapshot",
+            "columnName": "recipeNameSnapshot",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locked",
+            "columnName": "locked",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_menuItems_menuDayId",
+            "unique": false,
+            "columnNames": [
+              "menuDayId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_menuItems_menuDayId` ON `${TABLE_NAME}` (`menuDayId`)"
+          },
+          {
+            "name": "index_menuItems_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_menuItems_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          },
+          {
+            "name": "index_menuItems_role",
+            "unique": false,
+            "columnNames": [
+              "role"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_menuItems_role` ON `${TABLE_NAME}` (`role`)"
+          },
+          {
+            "name": "index_menuItems_menuDayId_role",
+            "unique": true,
+            "columnNames": [
+              "menuDayId",
+              "role"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_menuItems_menuDayId_role` ON `${TABLE_NAME}` (`menuDayId`, `role`)"
+          },
+          {
+            "name": "index_menuItems_menuDayId_recipeId",
+            "unique": true,
+            "columnNames": [
+              "menuDayId",
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_menuItems_menuDayId_recipeId` ON `${TABLE_NAME}` (`menuDayId`, `recipeId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "menuDays",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "menuDayId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "recipes",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipeId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "cookingHistories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `cookedDate` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cookedDate",
+            "columnName": "cookedDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_cookingHistories_cookedDate",
+            "unique": true,
+            "columnNames": [
+              "cookedDate"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cookingHistories_cookedDate` ON `${TABLE_NAME}` (`cookedDate`)"
+          },
+          {
+            "name": "index_cookingHistories_updatedAt",
+            "unique": false,
+            "columnNames": [
+              "updatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cookingHistories_updatedAt` ON `${TABLE_NAME}` (`updatedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "historyItems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `historyId` TEXT NOT NULL, `recipeId` TEXT NOT NULL, `recipeNameSnapshot` TEXT NOT NULL, `role` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`historyId`) REFERENCES `cookingHistories`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`recipeId`) REFERENCES `recipes`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "historyId",
+            "columnName": "historyId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeNameSnapshot",
+            "columnName": "recipeNameSnapshot",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_historyItems_historyId",
+            "unique": false,
+            "columnNames": [
+              "historyId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_historyItems_historyId` ON `${TABLE_NAME}` (`historyId`)"
+          },
+          {
+            "name": "index_historyItems_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_historyItems_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          },
+          {
+            "name": "index_historyItems_role",
+            "unique": false,
+            "columnNames": [
+              "role"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_historyItems_role` ON `${TABLE_NAME}` (`role`)"
+          },
+          {
+            "name": "index_historyItems_historyId_recipeId",
+            "unique": true,
+            "columnNames": [
+              "historyId",
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_historyItems_historyId_recipeId` ON `${TABLE_NAME}` (`historyId`, `recipeId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cookingHistories",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "historyId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "recipes",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipeId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "shoppingLists",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `weekStart` TEXT NOT NULL, `sourceMenuUpdatedAt` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `sourceFingerprint` TEXT, `needsRegeneration` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weekStart",
+            "columnName": "weekStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceMenuUpdatedAt",
+            "columnName": "sourceMenuUpdatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceFingerprint",
+            "columnName": "sourceFingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "needsRegeneration",
+            "columnName": "needsRegeneration",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_shoppingLists_weekStart",
+            "unique": true,
+            "columnNames": [
+              "weekStart"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_shoppingLists_weekStart` ON `${TABLE_NAME}` (`weekStart`)"
+          },
+          {
+            "name": "index_shoppingLists_sourceMenuUpdatedAt",
+            "unique": false,
+            "columnNames": [
+              "sourceMenuUpdatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingLists_sourceMenuUpdatedAt` ON `${TABLE_NAME}` (`sourceMenuUpdatedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "shoppingItems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `shoppingListId` TEXT NOT NULL, `name` TEXT NOT NULL, `normalizedName` TEXT NOT NULL, `amount` TEXT, `unit` TEXT NOT NULL, `recipeUsagesJson` TEXT NOT NULL, `checked` INTEGER NOT NULL, `excluded` INTEGER NOT NULL, `foodMasterId` TEXT, `aggregationKey` TEXT NOT NULL, `hasUnknownAmount` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`shoppingListId`) REFERENCES `shoppingLists`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shoppingListId",
+            "columnName": "shoppingListId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeUsagesJson",
+            "columnName": "recipeUsagesJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "checked",
+            "columnName": "checked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "excluded",
+            "columnName": "excluded",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "aggregationKey",
+            "columnName": "aggregationKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasUnknownAmount",
+            "columnName": "hasUnknownAmount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_shoppingItems_shoppingListId",
+            "unique": false,
+            "columnNames": [
+              "shoppingListId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingItems_shoppingListId` ON `${TABLE_NAME}` (`shoppingListId`)"
+          },
+          {
+            "name": "index_shoppingItems_normalizedName",
+            "unique": false,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingItems_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_shoppingItems_checked",
+            "unique": false,
+            "columnNames": [
+              "checked"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingItems_checked` ON `${TABLE_NAME}` (`checked`)"
+          },
+          {
+            "name": "index_shoppingItems_excluded",
+            "unique": false,
+            "columnNames": [
+              "excluded"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingItems_excluded` ON `${TABLE_NAME}` (`excluded`)"
+          },
+          {
+            "name": "index_shoppingItems_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_shoppingItems_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          },
+          {
+            "name": "index_shoppingItems_shoppingListId_aggregationKey",
+            "unique": true,
+            "columnNames": [
+              "shoppingListId",
+              "aggregationKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_shoppingItems_shoppingListId_aggregationKey` ON `${TABLE_NAME}` (`shoppingListId`, `aggregationKey`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "shoppingLists",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "shoppingListId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "foodMasters",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `normalizedName` TEXT NOT NULL, `baseUnit` TEXT NOT NULL, `isMainIngredient` INTEGER NOT NULL, `userEditable` INTEGER NOT NULL, `revision` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedName",
+            "columnName": "normalizedName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baseUnit",
+            "columnName": "baseUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isMainIngredient",
+            "columnName": "isMainIngredient",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userEditable",
+            "columnName": "userEditable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_foodMasters_normalizedName",
+            "unique": true,
+            "columnNames": [
+              "normalizedName"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_foodMasters_normalizedName` ON `${TABLE_NAME}` (`normalizedName`)"
+          },
+          {
+            "name": "index_foodMasters_userEditable",
+            "unique": false,
+            "columnNames": [
+              "userEditable"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasters_userEditable` ON `${TABLE_NAME}` (`userEditable`)"
+          }
+        ]
+      },
+      {
+        "tableName": "foodMasterAliases",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`foodMasterId` TEXT NOT NULL, `alias` TEXT NOT NULL, `normalizedAlias` TEXT NOT NULL, PRIMARY KEY(`foodMasterId`, `normalizedAlias`), FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alias",
+            "columnName": "alias",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedAlias",
+            "columnName": "normalizedAlias",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "foodMasterId",
+            "normalizedAlias"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_foodMasterAliases_normalizedAlias",
+            "unique": true,
+            "columnNames": [
+              "normalizedAlias"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_foodMasterAliases_normalizedAlias` ON `${TABLE_NAME}` (`normalizedAlias`)"
+          },
+          {
+            "name": "index_foodMasterAliases_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasterAliases_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "foodMasterGroups",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`foodMasterId` TEXT NOT NULL, `foodGroup` TEXT NOT NULL, PRIMARY KEY(`foodMasterId`, `foodGroup`), FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodGroup",
+            "columnName": "foodGroup",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "foodMasterId",
+            "foodGroup"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_foodMasterGroups_foodGroup",
+            "unique": false,
+            "columnNames": [
+              "foodGroup"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasterGroups_foodGroup` ON `${TABLE_NAME}` (`foodGroup`)"
+          },
+          {
+            "name": "index_foodMasterGroups_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasterGroups_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "foodMasterSeasons",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`foodMasterId` TEXT NOT NULL, `month` INTEGER NOT NULL, PRIMARY KEY(`foodMasterId`, `month`), FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "month",
+            "columnName": "month",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "foodMasterId",
+            "month"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_foodMasterSeasons_month",
+            "unique": false,
+            "columnNames": [
+              "month"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasterSeasons_month` ON `${TABLE_NAME}` (`month`)"
+          },
+          {
+            "name": "index_foodMasterSeasons_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_foodMasterSeasons_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "holidays",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `name` TEXT NOT NULL, `year` INTEGER NOT NULL, PRIMARY KEY(`date`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "date"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_holidays_year",
+            "unique": false,
+            "columnNames": [
+              "year"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_holidays_year` ON `${TABLE_NAME}` (`year`)"
+          }
+        ]
+      },
+      {
+        "tableName": "settings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "metadata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "planOutcomes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `menuItemId` TEXT NOT NULL, `state` TEXT NOT NULL, `historyItemId` TEXT, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`menuItemId`) REFERENCES `menuItems`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`historyItemId`) REFERENCES `historyItems`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "menuItemId",
+            "columnName": "menuItemId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "historyItemId",
+            "columnName": "historyItemId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_planOutcomes_menuItemId",
+            "unique": true,
+            "columnNames": [
+              "menuItemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_planOutcomes_menuItemId` ON `${TABLE_NAME}` (`menuItemId`)"
+          },
+          {
+            "name": "index_planOutcomes_historyItemId",
+            "unique": false,
+            "columnNames": [
+              "historyItemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_planOutcomes_historyItemId` ON `${TABLE_NAME}` (`historyItemId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "menuItems",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "menuItemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "historyItems",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "historyItemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "postponedPlans",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `sourceMenuItemId` TEXT NOT NULL, `recipeId` TEXT NOT NULL, `targetDate` TEXT NOT NULL, `state` TEXT NOT NULL, `targetMenuItemId` TEXT, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`sourceMenuItemId`) REFERENCES `menuItems`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`recipeId`) REFERENCES `recipes`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`targetMenuItemId`) REFERENCES `menuItems`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceMenuItemId",
+            "columnName": "sourceMenuItemId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetDate",
+            "columnName": "targetDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetMenuItemId",
+            "columnName": "targetMenuItemId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_postponedPlans_sourceMenuItemId",
+            "unique": true,
+            "columnNames": [
+              "sourceMenuItemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_postponedPlans_sourceMenuItemId` ON `${TABLE_NAME}` (`sourceMenuItemId`)"
+          },
+          {
+            "name": "index_postponedPlans_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_postponedPlans_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          },
+          {
+            "name": "index_postponedPlans_targetMenuItemId",
+            "unique": false,
+            "columnNames": [
+              "targetMenuItemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_postponedPlans_targetMenuItemId` ON `${TABLE_NAME}` (`targetMenuItemId`)"
+          },
+          {
+            "name": "index_postponedPlans_targetDate",
+            "unique": false,
+            "columnNames": [
+              "targetDate"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_postponedPlans_targetDate` ON `${TABLE_NAME}` (`targetDate`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "menuItems",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sourceMenuItemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "recipes",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipeId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "menuItems",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "targetMenuItemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "userFoodAliases",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `foodMasterId` TEXT NOT NULL, `alias` TEXT NOT NULL, `normalizedAlias` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`foodMasterId`) REFERENCES `foodMasters`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodMasterId",
+            "columnName": "foodMasterId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alias",
+            "columnName": "alias",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedAlias",
+            "columnName": "normalizedAlias",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_userFoodAliases_foodMasterId",
+            "unique": false,
+            "columnNames": [
+              "foodMasterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_userFoodAliases_foodMasterId` ON `${TABLE_NAME}` (`foodMasterId`)"
+          },
+          {
+            "name": "index_userFoodAliases_normalizedAlias",
+            "unique": true,
+            "columnNames": [
+              "normalizedAlias"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_userFoodAliases_normalizedAlias` ON `${TABLE_NAME}` (`normalizedAlias`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "foodMasters",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foodMasterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "drafts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `kind` TEXT NOT NULL, `targetKey` TEXT NOT NULL, `payloadVersion` INTEGER NOT NULL, `payloadJson` TEXT NOT NULL, `baseRevisionsJson` TEXT NOT NULL, `updatedAt` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetKey",
+            "columnName": "targetKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payloadVersion",
+            "columnName": "payloadVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payloadJson",
+            "columnName": "payloadJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baseRevisionsJson",
+            "columnName": "baseRevisionsJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_drafts_kind_targetKey",
+            "unique": true,
+            "columnNames": [
+              "kind",
+              "targetKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_drafts_kind_targetKey` ON `${TABLE_NAME}` (`kind`, `targetKey`)"
+          }
+        ]
+      },
+      {
+        "tableName": "draftReferences",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`draftId` TEXT NOT NULL, `entityType` TEXT NOT NULL, `entityId` TEXT NOT NULL, PRIMARY KEY(`draftId`, `entityType`, `entityId`), FOREIGN KEY(`draftId`) REFERENCES `drafts`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "draftId",
+            "columnName": "draftId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entityType",
+            "columnName": "entityType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entityId",
+            "columnName": "entityId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "draftId",
+            "entityType",
+            "entityId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_draftReferences_draftId",
+            "unique": false,
+            "columnNames": [
+              "draftId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_draftReferences_draftId` ON `${TABLE_NAME}` (`draftId`)"
+          },
+          {
+            "name": "index_draftReferences_entityType_entityId",
+            "unique": false,
+            "columnNames": [
+              "entityType",
+              "entityId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_draftReferences_entityType_entityId` ON `${TABLE_NAME}` (`entityType`, `entityId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "drafts",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "draftId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d991e7078a4c3e7ce13fa322c13d43e')"
+    ]
+  }
+}

@@ -2,7 +2,6 @@ package jp.local.recipemanager.feature.backup
 
 import android.content.Context
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.networknt.schema.*
 import com.networknt.schema.dialect.Dialects
@@ -12,14 +11,16 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import jp.local.recipemanager.core.text.TextNormalizer
+import jp.local.recipemanager.core.json.JsonInput
 
 data class ParsedBackup(val createdAt: Instant, val rows: BackupRows, val counts: Map<String, Int>)
 sealed interface BackupParseResult { data class Success(val backup: ParsedBackup) : BackupParseResult; data class Failure(val message: String) : BackupParseResult }
 
 class BackupCodec(context: Context) {
-    private val mapper = ObjectMapper()
+    private val mapper = JsonInput.mapper()
     private val schema = run {
         val root = context.assets.open("backup.schema.json").use(mapper::readTree)
+        JsonInput.requireLocalReferences(root)
         val config = SchemaRegistryConfig.builder().formatAssertionsEnabled(true).build()
         SchemaRegistry.withDialect(Dialects.getDraft202012()) { it.schemaRegistryConfig(config) }.getSchema(root)
     }
@@ -45,8 +46,8 @@ class BackupCodec(context: Context) {
     }
 
     fun parse(bytes: ByteArray): BackupParseResult {
-        if (bytes.size > 50 * 1024 * 1024) return BackupParseResult.Failure("ファイルサイズは50MB以内にしてください")
-        val root = try { mapper.readTree(bytes) } catch (_: Exception) { return BackupParseResult.Failure("JSONの構文が正しくありません") }
+        if (bytes.size > JsonInput.BACKUP_LIMIT) return BackupParseResult.Failure("ファイルサイズは50MiB以内にしてください")
+        val root = try { JsonInput.parse(bytes, JsonInput.BACKUP_LIMIT, mapper) } catch (_: Exception) { return BackupParseResult.Failure("JSONの構文またはUTF-8の文字コードが正しくありません") }
         if (root.path("schemaVersion").asText() != "1.0") return BackupParseResult.Failure("対応していないバックアップ形式です")
         val errors = schema.validate(root).map { "${it.instanceLocation}: ${it.message}" }
         if (errors.isNotEmpty()) return BackupParseResult.Failure("バックアップ形式が不正です\n${errors.take(5).joinToString("\n")}")

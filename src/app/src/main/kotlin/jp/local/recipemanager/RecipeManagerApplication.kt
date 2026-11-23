@@ -4,21 +4,11 @@ import android.app.Application
 import jp.local.recipemanager.data.local.BuiltInMasterLoader
 import jp.local.recipemanager.data.local.BuiltInHolidayLoader
 import jp.local.recipemanager.data.local.RecipeManagerDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import jp.local.recipemanager.data.local.v2.DatabaseRuntimeV2
+import jp.local.recipemanager.data.local.v2.RecipeManagerDatabaseV2
 
 class RecipeManagerApplication : Application() {
-    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
+    // Kept only for legacy regression helpers. The activity never opens the v1 connection.
     val database: RecipeManagerDatabase by lazy { RecipeManagerDatabase.build(this) }
-
-    override fun onCreate() {
-        super.onCreate()
-        applicationScope.launch {
-            BuiltInMasterLoader(this@RecipeManagerApplication).ensureLoaded(database)
-            BuiltInHolidayLoader(this@RecipeManagerApplication).ensureLoaded(database)
-        }
-    }
+    val databaseV2: RecipeManagerDatabaseV2 by lazy { DatabaseRuntimeV2.build(this) }
 }

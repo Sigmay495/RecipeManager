@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import jp.local.recipemanager.RecipeManagerApplication
 import jp.local.recipemanager.feature.recipe.RecipeRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,17 +26,22 @@ class RecipeImportViewModel(
 ) : ViewModel() {
     private val _state = MutableStateFlow(RecipeImportUiState())
     val state: StateFlow<RecipeImportUiState> = _state.asStateFlow()
+    private var loadJob: Job? = null
 
-    fun load(fileName: String, bytes: ByteArray) = viewModelScope.launch {
-        _state.value = RecipeImportUiState(loading = true)
-        val parsed = withContext(Dispatchers.Default) { parser.parse(fileName, bytes) }
-        _state.value = when (parsed) {
-            is ImportLoadResult.Failure -> RecipeImportUiState(fatalError = parsed.message)
-            is ImportLoadResult.Success -> RecipeImportUiState(preview = service.detectDuplicates(parsed.preview))
+    fun load(fileName: String, bytes: ByteArray) {
+        loadJob?.cancel()
+        loadJob = viewModelScope.launch {
+            _state.value = RecipeImportUiState(loading = true)
+            val parsed = withContext(Dispatchers.Default) { parser.parse(fileName, bytes) }
+            _state.value = when (parsed) {
+                is ImportLoadResult.Failure -> RecipeImportUiState(fatalError = parsed.message)
+                is ImportLoadResult.Success -> RecipeImportUiState(preview = service.detectDuplicates(parsed.preview))
+            }
         }
     }
 
-    fun fail(message: String) { _state.value = RecipeImportUiState(fatalError = message) }
+    fun beginRead() { loadJob?.cancel(); _state.value = RecipeImportUiState(loading = true) }
+    fun fail(message: String) { loadJob?.cancel(); _state.value = RecipeImportUiState(fatalError = message) }
 
     fun select(index: Int, action: ImportAction, restoreRecipeId: String? = null) {
         val preview = _state.value.preview ?: return
@@ -52,7 +58,7 @@ class RecipeImportViewModel(
             .onFailure { _state.value = _state.value.copy(loading = false, fatalError = it.message ?: "Importに失敗しました") }
     }
 
-    fun reset() { _state.value = RecipeImportUiState() }
+    fun reset() { loadJob?.cancel(); _state.value = RecipeImportUiState() }
 
     companion object {
         fun factory(application: RecipeManagerApplication): ViewModelProvider.Factory = object : ViewModelProvider.Factory {

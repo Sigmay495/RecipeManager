@@ -1,0 +1,627 @@
+{
+  "schemaVersion": "2.0",
+  "fileType": "full-backup",
+  "createdAt": "2026-10-03T00:00:00Z",
+  "appVersion": "2.00",
+  "masterVersion": "2026.09",
+  "data": {
+    "recipes": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "name": "卵丼",
+        "normalizedName": "卵丼",
+        "category": "one_dish",
+        "cookingTimeMinutes": 15,
+        "effortLevel": "easy",
+        "sourceUrl": null,
+        "memo": "Schema検証用の合成データ",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "proposalPriority": "normal",
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "豆腐スープ",
+        "normalizedName": "豆腐スープ",
+        "category": "soup",
+        "cookingTimeMinutes": 15,
+        "effortLevel": "easy",
+        "sourceUrl": null,
+        "memo": "Schema検証用の合成データ",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "proposalPriority": "normal",
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000003",
+        "name": "卵スープ",
+        "normalizedName": "卵スープ",
+        "category": "soup",
+        "cookingTimeMinutes": 15,
+        "effortLevel": "easy",
+        "sourceUrl": null,
+        "memo": "Schema検証用の合成データ",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "proposalPriority": "normal",
+        "revision": 1
+      }
+    ],
+    "recipeIngredients": [
+      {
+        "id": "00000000-0000-4000-8000-000000000020",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "order": 0,
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": "1.25",
+        "unit": "個",
+        "note": "",
+        "foodMasterId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000021",
+        "recipeId": "00000000-0000-4000-8000-000000000002",
+        "order": 0,
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": "1.25",
+        "unit": "個",
+        "note": "",
+        "foodMasterId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000022",
+        "recipeId": "00000000-0000-4000-8000-000000000003",
+        "order": 0,
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": null,
+        "unit": "個",
+        "note": "",
+        "foodMasterId": "00000000-0000-4000-8000-000000000010"
+      }
+    ],
+    "weeklyMenus": [
+      {
+        "id": "00000000-0000-4000-8000-000000000030",
+        "weekStart": "2026-09-28",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "revision": 1
+      }
+    ],
+    "menuDays": [
+      {
+        "id": "00000000-0000-4000-8000-000000000040",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-09-28",
+        "noMeal": false,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": true,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000041",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-09-29",
+        "noMeal": false,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000042",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-09-30",
+        "noMeal": false,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000043",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-10-01",
+        "noMeal": false,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000044",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-10-02",
+        "noMeal": false,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000045",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-10-03",
+        "noMeal": true,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000046",
+        "weeklyMenuId": "00000000-0000-4000-8000-000000000030",
+        "date": "2026-10-04",
+        "noMeal": true,
+        "noMealReason": "",
+        "noMealMemo": "",
+        "requirementOrigin": "explicit",
+        "dayLocked": false,
+        "revision": 1
+      }
+    ],
+    "menuItems": [
+      {
+        "id": "00000000-0000-4000-8000-000000000050",
+        "menuDayId": "00000000-0000-4000-8000-000000000040",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish",
+        "locked": true
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000051",
+        "menuDayId": "00000000-0000-4000-8000-000000000041",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish",
+        "locked": false
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000052",
+        "menuDayId": "00000000-0000-4000-8000-000000000042",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish",
+        "locked": false
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000053",
+        "menuDayId": "00000000-0000-4000-8000-000000000043",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish",
+        "locked": false
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000054",
+        "menuDayId": "00000000-0000-4000-8000-000000000044",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish",
+        "locked": false
+      }
+    ],
+    "cookingHistories": [
+      {
+        "id": "history-2026-09-28",
+        "cookedDate": "2026-09-28",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000060",
+        "cookedDate": "2026-09-29",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      }
+    ],
+    "historyItems": [
+      {
+        "id": "00000000-0000-4000-8000-000000000061",
+        "historyId": "history-2026-09-28",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "recipeNameSnapshot": "卵丼",
+        "role": "one_dish"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000062",
+        "historyId": "00000000-0000-4000-8000-000000000060",
+        "recipeId": "00000000-0000-4000-8000-000000000002",
+        "recipeNameSnapshot": "豆腐スープ",
+        "role": "soup"
+      }
+    ],
+    "shoppingLists": [
+      {
+        "id": "00000000-0000-4000-8000-000000000080",
+        "weekStart": "2026-09-28",
+        "sourceMenuUpdatedAt": "2026-10-03T00:00:00Z",
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "sourceFingerprint": null,
+        "needsRegeneration": true
+      }
+    ],
+    "shoppingItems": [
+      {
+        "id": "00000000-0000-4000-8000-000000000081",
+        "shoppingListId": "00000000-0000-4000-8000-000000000080",
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": "6.25",
+        "unit": "個",
+        "checked": true,
+        "excluded": false,
+        "foodMasterId": "00000000-0000-4000-8000-000000000010",
+        "aggregationKey": "[\"00000000-0000-4000-8000-000000000010\",\"個\"]",
+        "hasUnknownAmount": false,
+        "recipeUsages": [
+          {
+            "recipeId": "00000000-0000-4000-8000-000000000001",
+            "recipeNameSnapshot": "卵丼"
+          }
+        ]
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000082",
+        "shoppingListId": "00000000-0000-4000-8000-000000000080",
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": "25.500",
+        "unit": "g",
+        "checked": false,
+        "excluded": false,
+        "foodMasterId": "00000000-0000-4000-8000-000000000010",
+        "aggregationKey": "[\"00000000-0000-4000-8000-000000000010\",\"g\"]",
+        "hasUnknownAmount": true,
+        "recipeUsages": [
+          {
+            "recipeId": "00000000-0000-4000-8000-000000000001",
+            "recipeNameSnapshot": "卵丼"
+          }
+        ]
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000083",
+        "shoppingListId": "00000000-0000-4000-8000-000000000080",
+        "name": "卵",
+        "normalizedName": "卵",
+        "amount": null,
+        "unit": "本",
+        "checked": false,
+        "excluded": true,
+        "foodMasterId": "00000000-0000-4000-8000-000000000010",
+        "aggregationKey": "[\"00000000-0000-4000-8000-000000000010\",\"本\"]",
+        "hasUnknownAmount": true,
+        "recipeUsages": [
+          {
+            "recipeId": "00000000-0000-4000-8000-000000000001",
+            "recipeNameSnapshot": "卵丼"
+          }
+        ]
+      }
+    ],
+    "userFoodMasters": [
+      {
+        "id": "00000000-0000-4000-8000-000000000010",
+        "name": "卵",
+        "normalizedName": "卵",
+        "foodGroups": [
+          "egg",
+          "soy"
+        ],
+        "seasonMonths": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "isMainIngredient": true,
+        "userEditable": true,
+        "createdAt": "2026-10-03T00:00:00Z",
+        "updatedAt": "2026-10-03T00:00:00Z",
+        "baseUnit": "個",
+        "revision": 1
+      }
+    ],
+    "settings": {
+      "backupReminderIntervalDays": 30,
+      "lastBackupAt": null,
+      "holidayDataVersion": "2026.09"
+    },
+    "planOutcomes": [
+      {
+        "id": "00000000-0000-4000-8000-000000000070",
+        "menuItemId": "00000000-0000-4000-8000-000000000050",
+        "state": "cooked",
+        "historyItemId": "00000000-0000-4000-8000-000000000061",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000071",
+        "menuItemId": "00000000-0000-4000-8000-000000000051",
+        "state": "changed",
+        "historyItemId": "00000000-0000-4000-8000-000000000062",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000072",
+        "menuItemId": "00000000-0000-4000-8000-000000000052",
+        "state": "postponed",
+        "historyItemId": null,
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000073",
+        "menuItemId": "00000000-0000-4000-8000-000000000053",
+        "state": "postponed",
+        "historyItemId": null,
+        "updatedAt": "2026-10-03T00:00:00Z"
+      }
+    ],
+    "postponedPlans": [
+      {
+        "id": "00000000-0000-4000-8000-000000000074",
+        "sourceMenuItemId": "00000000-0000-4000-8000-000000000052",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "targetDate": "2026-10-02",
+        "state": "confirmed",
+        "targetMenuItemId": "00000000-0000-4000-8000-000000000054",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000075",
+        "sourceMenuItemId": "00000000-0000-4000-8000-000000000053",
+        "recipeId": "00000000-0000-4000-8000-000000000001",
+        "targetDate": "2026-10-05",
+        "state": "pending",
+        "targetMenuItemId": null,
+        "updatedAt": "2026-10-03T00:00:00Z"
+      }
+    ],
+    "userFoodAliases": [
+      {
+        "id": "00000000-0000-4000-8000-000000000011",
+        "foodMasterId": "00000000-0000-4000-8000-000000000010",
+        "alias": "たまご",
+        "normalizedAlias": "たまご",
+        "updatedAt": "2026-10-03T00:00:00Z"
+      }
+    ],
+    "drafts": [
+      {
+        "id": "00000000-0000-4000-8000-000000000090",
+        "kind": "recipe",
+        "targetKey": "00000000-0000-4000-8000-000000000001",
+        "payloadVersion": 1,
+        "payload": {
+          "form": {
+            "name": "入力途中",
+            "category": "",
+            "cookingTimeMinutes": "未入力",
+            "effortLevel": "normal",
+            "sourceUrl": "https://",
+            "memo": "",
+            "proposalPriority": "normal",
+            "ingredients": [
+              {
+                "localKey": "row-1",
+                "name": "たまご",
+                "amount": "入力中",
+                "unit": "個",
+                "note": "",
+                "foodMasterId": "00000000-0000-4000-8000-000000000010",
+                "foodCandidateKey": null
+              }
+            ]
+          },
+          "foodCandidates": [],
+          "conflicts": [
+            {
+              "entityType": "recipe",
+              "entityId": "00000000-0000-4000-8000-000000000001",
+              "reason": "統合前から編集対象のrevisionが異なる"
+            }
+          ]
+        },
+        "baseRevisions": [
+          {
+            "entityType": "recipe",
+            "entityId": "00000000-0000-4000-8000-000000000001",
+            "revision": 1
+          },
+          {
+            "entityType": "food",
+            "entityId": "00000000-0000-4000-8000-000000000010",
+            "revision": 1
+          }
+        ],
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000091",
+        "kind": "import",
+        "targetKey": "singleton",
+        "payloadVersion": 1,
+        "payload": {
+          "sourceJson": "{\"schemaVersion\":\"1.0\",\"fileType\":\"recipe-import\",\"recipes\":[]}",
+          "entries": [
+            {
+              "localKey": "entry-1",
+              "form": {
+                "name": "入力途中",
+                "category": "",
+                "cookingTimeMinutes": "未入力",
+                "effortLevel": "normal",
+                "sourceUrl": "https://",
+                "memo": "",
+                "proposalPriority": "normal",
+                "ingredients": [
+                  {
+                    "localKey": "row-1",
+                    "name": "たまご",
+                    "amount": "入力中",
+                    "unit": "個",
+                    "note": "",
+                    "foodMasterId": "00000000-0000-4000-8000-000000000010",
+                    "foodCandidateKey": null
+                  }
+                ]
+              },
+              "decision": "skip",
+              "validationState": "error",
+              "errors": [
+                "カテゴリを選択してください"
+              ],
+              "duplicateRecipeIds": [
+                "00000000-0000-4000-8000-000000000001"
+              ]
+            }
+          ],
+          "foodCandidates": [
+            {
+              "localKey": "candidate-1",
+              "name": "",
+              "aliases": [],
+              "foodGroups": [],
+              "baseUnit": "",
+              "seasonMonths": [],
+              "isMainIngredient": false
+            }
+          ],
+          "conflicts": []
+        },
+        "baseRevisions": [],
+        "updatedAt": "2026-10-03T00:00:00Z"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000092",
+        "kind": "menu",
+        "targetKey": "2026-09-28",
+        "payloadVersion": 1,
+        "payload": {
+          "days": [
+            {
+              "date": "2026-09-28",
+              "noMeal": false,
+              "requirementOrigin": "explicit",
+              "dayLocked": true,
+              "items": [
+                {
+                  "localKey": "item-0",
+                  "recipeId": "00000000-0000-4000-8000-000000000001",
+                  "role": "one_dish",
+                  "locked": true
+                }
+              ]
+            },
+            {
+              "date": "2026-09-29",
+              "noMeal": false,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": [
+                {
+                  "localKey": "item-1",
+                  "recipeId": "00000000-0000-4000-8000-000000000001",
+                  "role": "one_dish",
+                  "locked": false
+                }
+              ]
+            },
+            {
+              "date": "2026-09-30",
+              "noMeal": false,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": [
+                {
+                  "localKey": "item-2",
+                  "recipeId": "00000000-0000-4000-8000-000000000001",
+                  "role": "one_dish",
+                  "locked": false
+                }
+              ]
+            },
+            {
+              "date": "2026-10-01",
+              "noMeal": false,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": [
+                {
+                  "localKey": "item-3",
+                  "recipeId": "00000000-0000-4000-8000-000000000001",
+                  "role": "one_dish",
+                  "locked": false
+                }
+              ]
+            },
+            {
+              "date": "2026-10-02",
+              "noMeal": false,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": [
+                {
+                  "localKey": "item-4",
+                  "recipeId": "00000000-0000-4000-8000-000000000001",
+                  "role": "one_dish",
+                  "locked": false
+                }
+              ]
+            },
+            {
+              "date": "2026-10-03",
+              "noMeal": true,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": []
+            },
+            {
+              "date": "2026-10-04",
+              "noMeal": true,
+              "requirementOrigin": "explicit",
+              "dayLocked": false,
+              "items": []
+            }
+          ],
+          "warnings": [
+            "同一週の料理重複を採用前に確認してください"
+          ],
+          "seed": "42",
+          "conflicts": []
+        },
+        "baseRevisions": [
+          {
+            "entityType": "menu",
+            "entityId": "00000000-0000-4000-8000-000000000030",
+            "revision": 1
+          }
+        ],
+        "updatedAt": "2026-10-03T00:00:00Z"
+      }
+    ]
+  }
+}

@@ -13,7 +13,7 @@ class NavigationSmokeUiTest {
         composeRule.onNode(hasText("献立") and hasClickAction()).performClick()
         composeRule.onNodeWithText("1週間の献立を自動提案").assertExists()
 
-        composeRule.onNode(hasText("買い物") and hasClickAction()).performClick()
+        composeRule.onNode(hasText("買い物") and hasClickAction()).performScrollTo().performClick()
         composeRule.onNodeWithText("買い物材料リスト").assertExists()
         composeRule.onNodeWithText("献立から生成").assertExists()
 

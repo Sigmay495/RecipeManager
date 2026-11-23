@@ -1,55 +1,40 @@
 package jp.local.recipemanager.feature.recipe
 
-import androidx.compose.ui.test.hasSetTextAction
-import androidx.compose.ui.test.hasClickAction
-import androidx.compose.ui.test.hasScrollAction
-import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onLast
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
-import androidx.compose.ui.test.performScrollToNode
-import androidx.compose.ui.test.performTextInput
-import androidx.compose.ui.test.performTextReplacement
 import jp.local.recipemanager.MainActivity
 import org.junit.Rule
 import org.junit.Test
 
 class RecipeCrudUiTest {
-    @get:Rule val composeRule = createAndroidComposeRule<MainActivity>()
-
-    @Test
-    fun registersRecipeAndShowsDetail() {
-        val recipeName = "UIテスト用みそ汁${System.nanoTime()}"
+    @get:Rule val composeRule=createAndroidComposeRule<MainActivity>()
+    @Test fun registersRecipeAndShowsDetail() {
+        val recipeName="UIテスト用みそ汁${System.nanoTime()}"
+        composeRule.waitUntil(15000) { composeRule.onAllNodes(hasText("レシピ") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
         composeRule.onNode(hasText("レシピ") and hasClickAction()).performClick()
-        composeRule.onNodeWithText("新規登録", useUnmergedTree = true).performClick()
-        composeRule.onNode(hasSetTextAction() and hasText("料理名（必須）")).performTextInput(recipeName)
-        composeRule.onNode(hasSetTextAction() and hasText("材料名")).performTextInput("みそ")
-        composeRule.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("保存"))
-        composeRule.onNodeWithText("保存", useUnmergedTree = true).performClick()
-        composeRule.waitUntil(5_000) {
-            composeRule.onAllNodesWithText(recipeName).fetchSemanticsNodes().isNotEmpty()
-        }
+        composeRule.onNodeWithText("レシピを登録").performClick()
+        composeRule.waitUntil(10000) { composeRule.onAllNodesWithText("料理名").fetchSemanticsNodes().isNotEmpty() }
+        composeRule.onNodeWithText("料理名").performTextReplacement(recipeName)
+        composeRule.onNodeWithText("材料を検索・追加").performScrollTo().performClick()
+        composeRule.onNodeWithText("材料名・別名").performTextInput("みそ")
+        composeRule.onNodeWithText("みそ（内蔵）").performClick()
+        composeRule.onNodeWithText("内容を確認して保存").performScrollTo().performClick()
+        composeRule.waitUntil(10000) { composeRule.onAllNodesWithText("レシピ詳細").fetchSemanticsNodes().isNotEmpty() }
         composeRule.onNodeWithText(recipeName).assertExists()
-        composeRule.onNodeWithText("編集").assertExists()
-        composeRule.onNodeWithText("削除").assertExists()
-
-        composeRule.onNode(hasText("編集") and hasClickAction()).performScrollTo().performClick()
-        val editedName = "${recipeName}改"
-        composeRule.waitUntil(5_000) {
-            composeRule.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isNotEmpty()
-        }
-        composeRule.onAllNodes(hasSetTextAction())[0].performTextReplacement(editedName)
-        composeRule.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("保存"))
-        composeRule.onNodeWithText("保存", useUnmergedTree = true).performClick()
-        composeRule.waitUntil(5_000) { composeRule.onAllNodesWithText(editedName).fetchSemanticsNodes().isNotEmpty() }
-
-        composeRule.onNode(hasText("削除") and hasClickAction()).performScrollTo().performClick()
-        composeRule.onAllNodes(hasText("削除") and hasClickAction()).onLast().performClick()
-        composeRule.waitUntil(5_000) { composeRule.onAllNodesWithText("復元").fetchSemanticsNodes().isNotEmpty() }
-        composeRule.onNode(hasText("復元") and hasClickAction()).performScrollTo().performClick()
-        composeRule.waitUntil(5_000) { composeRule.onAllNodesWithText("編集").fetchSemanticsNodes().isNotEmpty() }
+        composeRule.onNodeWithText("編集").performScrollTo().performClick()
+        composeRule.waitUntil(10000) { composeRule.onAllNodesWithText("料理名").fetchSemanticsNodes().isNotEmpty() }
+        val editedName="${recipeName}改"
+        composeRule.onNodeWithText("料理名").performTextReplacement(editedName)
+        composeRule.onNodeWithText("内容を確認して保存").performScrollTo().performClick()
+        composeRule.waitUntil(10000) { composeRule.onAllNodesWithText("レシピ詳細").fetchSemanticsNodes().isNotEmpty() }
+        composeRule.onNodeWithText(editedName).assertExists()
+        composeRule.onNodeWithText("参照を確認して削除").performScrollTo().performClick()
+        composeRule.onNodeWithText("取り消す").performClick()
+        composeRule.onNodeWithText(editedName).assertExists()
+        composeRule.onNodeWithText("参照を確認して削除").performScrollTo().performClick()
+        composeRule.onNodeWithText("確認して実行").performClick()
+        composeRule.waitUntil(10000) { composeRule.onAllNodesWithText("レシピを登録").fetchSemanticsNodes().isNotEmpty() }
+        composeRule.onNodeWithText("料理名・材料名で検索").performTextInput(editedName)
+        composeRule.onNodeWithText("検索結果 0件").assertExists()
     }
 }

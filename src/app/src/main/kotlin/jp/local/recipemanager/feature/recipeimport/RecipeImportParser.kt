@@ -2,7 +2,6 @@ package jp.local.recipemanager.feature.recipeimport
 
 import android.content.Context
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.networknt.schema.SchemaRegistry
 import com.networknt.schema.SchemaRegistryConfig
 import com.networknt.schema.dialect.Dialects
@@ -11,11 +10,13 @@ import jp.local.recipemanager.domain.model.RecipeCategory
 import jp.local.recipemanager.feature.recipe.IngredientDraft
 import jp.local.recipemanager.feature.recipe.RecipeDraft
 import java.time.Instant
+import jp.local.recipemanager.core.json.JsonInput
 
 class RecipeImportParser(context: Context) {
-    private val mapper = ObjectMapper()
+    private val mapper = JsonInput.mapper()
     private val recipeSchema = run {
         val schemaRoot = context.assets.open(SCHEMA_ASSET).use(mapper::readTree)
+        JsonInput.requireLocalReferences(schemaRoot)
         val wrapper = mapper.createObjectNode().apply {
             put("\$schema", "https://json-schema.org/draft/2020-12/schema")
             set<JsonNode>("\$defs", schemaRoot.path("\$defs"))
@@ -27,9 +28,9 @@ class RecipeImportParser(context: Context) {
     }
 
     fun parse(fileName: String, bytes: ByteArray): ImportLoadResult {
-        if (bytes.size > MAX_FILE_BYTES) return ImportLoadResult.Failure("ファイルサイズは5MB以内にしてください")
-        val root = try { mapper.readTree(bytes) } catch (_: Exception) {
-            return ImportLoadResult.Failure("JSONの構文が正しくありません")
+        if (bytes.size > MAX_FILE_BYTES) return ImportLoadResult.Failure("ファイルサイズは5MiB以内にしてください")
+        val root = try { JsonInput.parse(bytes, MAX_FILE_BYTES, mapper) } catch (_: Exception) {
+            return ImportLoadResult.Failure("JSONの構文またはUTF-8の文字コードが正しくありません")
         }
         outerError(root)?.let { return ImportLoadResult.Failure(it) }
         val candidates = root.path("recipes").mapIndexed { index, node ->
@@ -90,7 +91,7 @@ class RecipeImportParser(context: Context) {
     )
 
     companion object {
-        const val MAX_FILE_BYTES = 5 * 1024 * 1024
+        const val MAX_FILE_BYTES = JsonInput.IMPORT_LIMIT
         const val SCHEMA_ASSET = "recipe-import.schema.json"
     }
 }
